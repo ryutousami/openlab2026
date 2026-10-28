@@ -21,7 +21,9 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--blue); outline-
 .wrap { width: min(960px, calc(100% - 64px)); margin-inline: auto; }
 .header { background: #ededed; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 28px; padding-block: 23px; }
-.brand { display: flex; flex-direction: column; color: var(--ink); text-decoration: none; line-height: 1.5; }
+.brand { display: flex; align-items: center; gap: 18px; color: var(--ink); text-decoration: none; line-height: 1.5; }
+.brand-logo { display: block; width: 130px; height: auto; flex-shrink: 0; }
+.brand-text { display: flex; flex-direction: column; }
 .brand-name { font-size: 24px; font-weight: 700; }
 .brand-sub { font-size: 11px; color: var(--muted); }
 nav { display: flex; flex-wrap: wrap; gap: 24px; font-size: 13px; }
@@ -79,6 +81,10 @@ dd { margin: 0; }
 
 @media (max-width: 700px) {
   .wrap { width: calc(100% - 40px); }
+  .brand { gap: 12px; }
+  .brand-logo { width: 106px; }
+  .brand-name { font-size: 21px; }
+  .brand-sub { font-size: 10px; }
   .header-inner { flex-direction: column; align-items: flex-start; gap: 18px; padding-block: 18px; }
   nav { width: 100%; justify-content: space-between; gap: 8px; font-size: 12px; }
   .hero { padding-block: 34px 26px; }
