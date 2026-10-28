@@ -10,8 +10,8 @@
 | `public/style.css` | 配色、レイアウト、スマートフォン表示 |
 | `public/favicon.svg` | タブのアイコン |
 | `public/404.html` | 存在しないページの案内 |
-| `public/_headers` | Cloudflare Pagesのレスポンスヘッダー |
-| `docs/deployment.md` | GitHub・Cloudflare Pages・ドメインの設定手順 |
+| `.github/workflows/pages.yml` | GitHub Pagesへの自動デプロイ |
+| `docs/deployment.md` | GitHub Pages・ドメインの設定手順 |
 
 ## ローカルで確認
 
@@ -28,7 +28,7 @@ python3 -m http.server 8000 --directory public --bind 127.0.0.1
 1. 編集したいファイルを開き、鉛筆アイコンを選択。
 2. 編集後、ブランチを作成して変更をコミット。
 3. Pull Requestで研究室メンバーが確認し、`main`へマージ。
-4. Cloudflare Pages連携後は、`main`の変更が自動的に本番サイトへ反映されます。
+4. GitHub Pagesの有効化後は、`main`の変更が自動的に本番サイトへ反映されます。
 
 ## 参加登録の追加
 

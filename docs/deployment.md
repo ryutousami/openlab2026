@@ -1,48 +1,47 @@
-# GitHubとCloudflare Pagesでの運用
+# GitHub Pagesでの運用
 
-## GitHub
+## 公開先
 
-リポジトリ名は `openlab2026`。初期作成先は `ryutousami` の個人アカウント、公開範囲はPrivateを想定します。研究室管理にするには、運用に合わせて研究室Organizationへ移管するか、研究室の管理担当者を共同管理者として追加してください。個人アカウントに作成しただけでは研究室による管理体制は完成しません。
+- リポジトリ: https://github.com/ryutousami/openlab2026
+- 有効化後の公開URL: https://ryutousami.github.io/openlab2026/
+- 配信対象: `public/` のみ。ビルドや依存パッケージは不要です。
 
-## Cloudflare Pagesへの初回接続
+## 初回設定
 
-1. 研究室で管理するCloudflareアカウントの「Workers & Pages」からPagesのGit連携を作成。
-2. GitHubの `openlab2026` リポジトリを接続。非公開リポジトリの場合はCloudflareのGitHub連携に対象リポジトリへのアクセスを許可。
-3. 下記を設定してデプロイ。
+現在のアカウントでは、PrivateリポジトリのPages利用にアップグレードが必要です。無料で利用する場合は、所有者がコードと変更履歴の公開を了承したうえでリポジトリをPublicへ変更します。
 
-| 項目 | 値 |
-| --- | --- |
-| Production branch | `main` |
-| Framework preset | None |
-| Build command | `exit 0` |
-| Build output directory | `public` |
-| Root directory | 空欄（リポジトリルート） |
-| Environment variables | 不要 |
+1. Settings → Pages を開きます。
+2. Build and deployment の Source を **GitHub Actions** に設定します。
+3. Actions → Deploy GitHub Pages → Run workflow で `main` を選んで実行します。
+4. 成功後、公開URLを開いて表示を確認します。
 
-初回公開後、Cloudflareが割り当てた `https://<プロジェクト名>.pages.dev` を確認します。希望名が空いていない場合は別のプロジェクト名になります。
+以後は `public/` または公開ワークフローの変更を `main` にpushすると自動公開されます。手動実行も可能です。Pull Requestからは公開しません。失敗時はActionsのログを確認してください。
 
-このサイトは静的配信のみで、Workers・Functions・データベースを使用しません。無料枠での運用を想定しています。利用枠の最新条件はCloudflare側で確認してください。
+## 研究室のサブドメイン（任意）
 
-## 研究室のサブドメイン
+1. 研究室のDNS管理者と使用するサブドメインを決めます。
+2. GitHub Pages設定のCustom domainに登録します。
+3. DNSのCNAMEを `ryutousami.github.io` に向けます（`/openlab2026/` は付けません）。
+4. DNS確認後にEnforce HTTPSを有効化します。
+5. `public/404.html` の `/openlab2026/style.css` と `/openlab2026/` を、それぞれ `/style.css` と `/` に更新します。
 
-1. 研究室のDNS管理者と、使用するサブドメインを決める。
-2. Pagesプロジェクトの「Custom domains」にそのサブドメインを追加。
-3. 案内に従い、DNSでサブドメインのCNAMEを `<プロジェクト名>.pages.dev` に向ける。
-4. HTTPS証明書の有効化と画面表示を確認し、研究室HPからリンクする。
+## 共同管理と編集
 
-Pages側へのドメイン登録を先に行ってください。DNSのCNAME追加だけでは設定は完了しません。研究室ドメインがCloudflare以外で管理されていても、サブドメインのCNAME設定で利用できる構成があります。
+所有者は `ryutousami` です。研究室で管理するには共同管理者の追加、または研究室Organizationへの移管を別途行います。移管・リポジトリ名変更時は公開URLと404ページのパスも見直してください。
+
+`public/index.html` で本文、`public/style.css` でデザインを編集します。参加登録には外部フォームのリンクを使用し、参加者情報はリポジトリに保存しません。公式HPのNews・イベント一覧から公開URLへ誘導します。
+
+GitHub PagesはCloudflareの `_headers` 設定を適用しないため、そのファイルは削除しました。独自のHTTPレスポンスヘッダー設定は含めていません。
 
 ## 公開前の確認
 
-- 仮の文章・準備中の表示を確認し、確定情報に更新する。
-- スマートフォン・PCの表示とページ内リンクを確認する。
-- フォームの受付状態、共有範囲、主催者による個人情報の取り扱い説明を確認する。
-- 公式HPリンクと問い合わせ先を設定する。
-- PagesのプレビューURLはPrivateリポジトリでも自動的に非公開になるとは限りません。プレビューにも機密情報を掲載しないでください。
+- 未確定情報、フォームの受付状態、公式HPと問い合わせ先を確認。
+- PC・スマートフォン表示、ページ内リンク、存在しないURLの404画面を確認。
+- リポジトリがPrivateでも、通常のGitHub Pagesサイトはインターネット上に公開されます。
 
-## 参考（Cloudflare公式）
+## 公式資料
 
-- [Static HTML](https://developers.cloudflare.com/pages/framework-guides/deploy-anything/)
-- [Custom domains](https://developers.cloudflare.com/pages/configuration/custom-domains/)
+- [公開元の設定・利用プラン](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site)
+- [GitHub Actionsによる公開](https://docs.github.com/en/pages/getting-started-with-github-pages/using-custom-workflows-with-github-pages)
 
-※ この文書は設定手順です。Cloudflareへの接続・公開・DNS変更を実施済みという意味ではありません。
+この文書とワークフローの追加だけでは公開は有効になりません。上記の初回設定が必要です。
