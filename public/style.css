@@ -389,3 +389,8 @@ nav>a:not(.nav-cta):focus-visible:after{transform:scaleX(1)}
 @media(max-width:760px){.program-guide{left:max(12px,env(safe-area-inset-left));bottom:max(12px,env(safe-area-inset-bottom));max-width:calc(100vw - 24px)}.program-guide .guide-bubble{font-size:13px;padding:9px 11px}.program-guide .guide-avatar{width:64px}}
 
 .greeting-signature{margin-top:24px;text-align:right;font:inherit}
+
+/* Registration deadline and catering notice. */
+.registration-deadline { margin-top: 22px; max-width: 560px; font-size: 20px; line-height: 1.7; }
+.registration-note { display: block; margin-top: 8px; font-size: 13px; font-weight: 400; line-height: 1.8; }
+@media (max-width: 760px) { .registration-deadline { font-size: 18px; } }
